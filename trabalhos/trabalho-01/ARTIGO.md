@@ -17,7 +17,7 @@ Diferente do Java, __Smalltalk tem suporte a números grandes nativo__. Ou seja,
 O código abaixo efetua o cálculo do fatorial de 5000, que resulta em um número de __16.326 dígitos__.
 
 ```smalltalk
-Transcript show: 5 factorial.
+Transcript show: 5000 factorial.
 ```
 
 Como o __java não tem suporte nativo a números grandes__, a execução do código abaixo para o fatorial de 5000 retornaria o valor zero. 
