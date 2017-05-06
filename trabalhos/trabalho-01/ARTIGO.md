@@ -13,70 +13,27 @@ Smalltalk era uma das muitas linguagens de programação orientadas a objetos ba
 Smalltalk é uma linguagem de programação orientada a objeto dinamicamente tipada. __Em Smalltalk tudo é objeto: os números, as classes, os métodos, blocos de código, etc__ (exceto as variáveis de instâncias privadas). __Não há tipos primitivos__, ao contrário de outras linguagens orientadas a objeto. Strings, números e caracteres são implementados como classes em Smalltalk, por isso esta linguagem é considerada puramente orientada a objetos. Tecnicamente, todo elemento de Smalltalk é um objeto de primeira ordem.
 
 # Expressividade (Smalltalk x Java)
-Diferente do Java, __Smalltalk tem suporte a números grandes nativo__. Ou seja, cálculos que utilizam ou resultam em um número com muitos dígitos são efetuados normalmente em smalltalk, sem nenhum acréscimo no código.
-O código abaixo efetua o cálculo do fatorial de 5000, que resulta em um número de __16.326 dígitos__.
+Tanto smalltalk como java, implementam programação orientada a objetos. Sendo o smalltalk bem mais radical nesse aspecto, nele __tudo é objeto__.  
+A estrutura de controle _If_, por exemplo, é apenas uma palavra reservada em java. Já o equivalente em smalltalk, _ifTrue:_, é um método da classe Boolean. Além disso, todo o código em smalltalk funciona através da troca de mensagens.
 
 ```smalltalk
-Transcript show: 5000 factorial.
+Transcript show: 5 factorial asString.
 ```
 
-Como o __java não tem suporte nativo a números grandes__, a execução do código abaixo para o fatorial de 5000 retornaria o valor zero. 
+No exemplo do fatorial, enviamos a mensagem _factorial_ para o objeto _5_ que responde _120_, então a mensagem _show:_ é enviada  para o objeto _Transcript_ com o argumento _120_. A invocação do método _show:_ faz com que os caracteres de seu argumento sejam exibidos no terminal.  
+Em java, não utilizaríamos objetos e, muito menos, troca de mensagens para isso.
 
-```java
-public class fatorial {
-	public static int fatorial(int n) {
-		if (n == 1 || n == 0) return 1; 
-		return n * fatorial(n-1);
-	}
-	public static void main(String args[]) {
-		System.out.println("Fatorial de 5000 = " + fatorial(5000));
-	}
-}
-```
-
-Para fazer esse cálculo corretamente, é necessário usar uma classe que dê suporte a números grandes, uma delas é a classe BigDecimal.
-O código abaixo efetua o cálculo do fatorial de números grandes em java.
-
-```java
-import java.math.BigDecimal;
-public class bigfatorial {
-	public static BigDecimal fatorial(BigDecimal i, BigDecimal one) {
-		if (i.equals(BigDecimal.ONE))  {
-			return one; 
-		}
-		BigDecimal fat = i.subtract(BigDecimal.ONE);
-		return fatorial(fat, one.multiply(fat));
-	}
-	public static void main(String args[]) {
-		BigDecimal n = BigDecimal.valueOf(5000);
-		System.out.println("Fatorial de 5000 = " + fatorial(n,n));
-	}
-}
-```
-
-Segue abaixo outro exemplo da expressividade em Smalltalk com números grandes em relação ao java. O código imprime todas as potências de 2 entre 1 e 500, sendo que 2^500 gera um número com 151 dígitos.
+No exemplo a seguir, são impressas todas as potências de 2 entre 1 e 500. Anilisando apenas o cálculo da potência, temos dois objetos envolvidos: _2_ como o receptor da mensagem (sendo a mensagem o método _raisedTo:_ da classe Number) e _i_ como o argumento da mensagem.
 
 ```smalltalk
 1 to: 500 do: [:i |
-	Transcript show: '2 elevado a ', (i asString), ' é ', (2 raisedTo: i) asString; cr.
+Transcript show: '2 elevado a ', (i asString), ' é ', (2 raisedTo: i) asString; cr.
 ].
 ```
 
-Agora veja o código em java, dessa vez utilizando a classe BigInteger para manipulat corretamente resultados com números grandes.
+Na POO em java, quando nós rodamos o programa, a classe é definida, um ou mais objetos são instanciados, e a partir daí podemos chamar os métodos dos objetos.
 
-```java
-import java.math.BigInteger;
-public class bigpotencia{
-	public static void main(String[] args){
-		int i=1;
-		do{
-			BigInteger bi = new BigInteger("2");
-			System.out.println("2 elevado a "+i+" = "+ bi.pow(i));
-			i++;
-		}while (i<=500);
-	}
-}
-```
+Em Smalltalk, a abstração é mais semelhante ao mundo real: você possui um “mundo” de classes, cada uma com suas características próprias. Cada classe é praticamente um “processo” sozinho, que se comunica com outras classes ou “processos” usando mensagens. Essa passagem de mensagens, como definiu Alan Kay, é baseada em como as células e neurônios se comunicam um com o outro. Ou seja, em Smalltalk, um objeto não é simplesmente uma forma de abstração, é praticamente um organismo por si só. Isso eleva a palavra “orientação a objeto” a um novo nível, um nível de expressividade em OO que ainda não conseguimos alcançar com java.
 
 # Avaliação Comparativa
 A notação do Smalltalk é semelhante à escrita em inglês. Veja o código abaixo:
@@ -152,4 +109,5 @@ Smalltalk é relativamente fácil de aprender comparado a linguagens como C++ e 
 * https://pt.wikipedia.org/wiki/Smalltalk
 * https://smalltalkbrasil.wordpress.com/
 * http://www.smalltalk.com.br/blogs/st/
+* https://mauricioszabo.wordpress.com/2010/02/19/smalltalk-e-a-nocao-de-objetos/
 * https://marciobueno.com/linguagens-programacao/smalltalk-primeiras-linguagens-orientadas-objetos
