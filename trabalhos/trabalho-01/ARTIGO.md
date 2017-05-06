@@ -14,7 +14,8 @@ Smalltalk é uma linguagem de programação orientada a objeto dinamicamente tip
 
 # Expressividade (Smalltalk x Java)
 Tanto smalltalk como java, implementam programação orientada a objetos. Sendo o smalltalk bem mais radical nesse aspecto, nele __tudo é objeto__.  
-A estrutura de controle _If_, por exemplo, é apenas uma palavra reservada em java. Já o equivalente em smalltalk, _ifTrue:_, é um método da classe Boolean. Além disso, todo o código em smalltalk funciona através da troca de mensagens.
+A estrutura de controle _If_, por exemplo, é apenas uma palavra reservada em java. Já o equivalente em smalltalk, _ifTrue:_, é um método da classe Boolean.  
+Outro aspecto importante é que todo o código em smalltalk funciona através da troca de mensagens.
 
 ```smalltalk
 Transcript show: 5 factorial asString.
@@ -23,7 +24,7 @@ Transcript show: 5 factorial asString.
 No exemplo do fatorial, enviamos a mensagem _factorial_ para o objeto _5_ que responde _120_, então a mensagem _show:_ é enviada  para o objeto _Transcript_ com o argumento _120_. A invocação do método _show:_ faz com que os caracteres de seu argumento sejam exibidos no terminal.  
 Em java, não utilizaríamos objetos e, muito menos, troca de mensagens para isso.
 
-No exemplo a seguir, são impressas todas as potências de 2 entre 1 e 500. Anilisando apenas o cálculo da potência, temos dois objetos envolvidos: _2_ como o receptor da mensagem (sendo a mensagem o método _raisedTo:_ da classe Number) e _i_ como o argumento da mensagem.
+No exemplo a seguir, são impressas todas as potências de 2 entre 1 e 500. Analisando apenas o cálculo da potência, temos dois objetos envolvidos: _2_ como o receptor da mensagem (sendo a mensagem o método _raisedTo:_ da classe Number) e _i_ como o argumento da mensagem.
 
 ```smalltalk
 1 to: 500 do: [:i |
