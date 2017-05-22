@@ -45,6 +45,13 @@ function love.keypressed (key)
 	end
 end
 function isBorderDown(o)
+	
+	-- Nome: variável "o"
+	-- Propriedade: endereço
+	-- Binding time: execução
+	-- Explicação: Como o é uma variável local, seu endereço 
+	--			 só é definido em tempo de execução
+	
 	return (o.y>=610)
 end
 function isBorderLeft(o)
@@ -182,13 +189,6 @@ function love.draw ()
 		love.graphics.print("Pressione a letra A para recomeçar", 250, 320, 0, 1.2, 1.2)
 	end
 		if val==84 then
-		
-		-- Nome: operador "=="
-		-- Propriedade: semântica
-		-- Binding time: execução
-		-- Explicação: A comparação realizada pelo operador == ocorre ao término de 
-		--			   cada rodada, ou seja, em tempo de execução
-	
 		isPressed=0
 		love.graphics.print("Parabéns, voce ganhou !!!! Pressione a letra A para recomeçar", 150, 320, 0, 1.2, 1.2)
 	end
