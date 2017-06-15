@@ -8,7 +8,6 @@ import Html exposing (text)
 
 type alias Aluno = (String, Float, Float) -- Aluno é um tipo tupla com o nome e as duas notas
 type alias Turma = List Aluno             -- Turma é um tipo lista de alunos
-type alias Media = (String,Float)
 -- O nome ou a média de um aluno pode ser obtido através das seguintes funções:
 
 media: Aluno -> Float
@@ -47,22 +46,27 @@ aprovados: List String
 aprovados = List.map nome (List.filter (\ x -> (media x >= 7)) turma)
 
 -- c) MÉDIA FINAL DOS ALUNOS DE "turma" (média de todas as médias)
---total: Float
---total = ...
+total: Float
+total = (List.foldl (\ x y -> (x+y)) 0 medias)/5
 
 -- d) LISTA DE ALUNOS QUE GABARITARAM A P1 ([("Maria",10,8), ...])
 turma_dez_p1: Turma
 turma_dez_p1 = List.filter (\ (_,x,_) -> (x == 10)) turma
 
 -- e) LISTA COM OS NOMES E MEDIAS DOS ALUNOS APROVADOS ([("Maria",9), ...])
-aprovados2: List (String,Float)
-aprovados2 = [aprovados, List.map media (List.filter (\ x -> (media x >= 7)) turma)]
+aprovados2: List (String, Float)
+aprovados2 = List.map (\ y -> (nome y, media y)) (List.filter (\ x -> (media x >= 7)) turma)
 
 -- f) LISTA COM TODAS AS NOTAS DE TODAS AS PROVAS ([7,4,10,8,...])
---notas: List Float
---notas = ...
+notas: List Float
+notas = List.foldl (\ (_,x,y) z -> (z ++ [x] ++ [y])) [] turma
 
 -- É permitido usar funções auxiliares, mas não é necessário.
 -- (As soluções são pequenas.)
 
-main = text (toString aprovados2)
+--main = text (toString medias)
+--main = text (toString aprovados)
+--main = text (toString turma_dez_p1)
+--main = text (toString aprovados2)
+--main = text (toString total)
+main = text (toString notas)
