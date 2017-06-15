@@ -60,7 +60,7 @@ end
 function collidesBonus () -- função de desalocação após colisão durante tempo de bonus
 	for i=1, 3 do
 		for j=1, 14 do
-			if b[i][j].x ~= nil then
+			if b[i][j] ~= nil then
 				if collides(b[i][j], p3) then
 					if	collidesX(b[i][j],p3) then
 						p3.vy=p3.vy*(-1.01)
@@ -68,10 +68,7 @@ function collidesBonus () -- função de desalocação após colisão durante te
 						p3.vx=p3.vx*(-1)
 						p3.vy=p3.vy*(1.01)
 					end
-					b[i][j].x=nil
-					b[i][j].y=nil
-					b[i][j].w=nil
-					b[i][j].h=nil
+					b[i][j]=nil
 					val=val+1
 				end
 			end
@@ -82,10 +79,7 @@ end
 function desaloc() -- função de desalocação após término de cada tempo de bonus
 	for i=1, 3 do
 		for j=1, 14 do
-			b[i][j].x=nil
-			b[i][j].y=nil
-			b[i][j].w=nil
-			b[i][j].h=nil
+			b[i][j]=nil
 		end
 	end
 end		
@@ -231,7 +225,7 @@ function love.draw ()
 		love.graphics.print("Mantenha a tecla S pressionada", 290, 320, 0, 1.2, 1.2)
 		for i=1, 3 do
 			for j=1, 14 do
-				if b[i][j].x ~= nil then
+				if b[i][j] ~= nil then
 					love.graphics.rectangle('fill', b[i][j].x,b[i][j].y, b[i][j].w,b[i][j].h)
 				end
 			end
