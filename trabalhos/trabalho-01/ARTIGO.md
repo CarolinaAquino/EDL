@@ -64,7 +64,7 @@ public class potencia{
 No terceiro exemplo, temos dois códigos que fazem inversão de String, um em smalltalk e outro em java. Mais uma vez, utilizando troca de mensagens entre objetos, no caso do smalltalk, e em java invertendo palavras no vetor.
 
 ```smalltalk
-soneto := ' ______ Fidelidade da Soneto _____ 
+soneto := ' Fidelidade da Soneto  
  
 atento serei amor meu ao tudo, De
 tanto e sempre, e zelo, tal com e Antes,
@@ -72,7 +72,7 @@ encanto maior do face em mesmo Que
 pensamento. meu mais encante se Dele
 (...)
  
-Moraes de Vinicius ________________'.
+Moraes de Vinicius '.
  
 (soneto lines collect: [ :line | ((line splitOn: ' ') reverse) joinUsing: ' '  ]) joinUsing: (String cr).
 ```
@@ -83,7 +83,7 @@ Agora vejamos em java:
 public class inverte {
  
     static final String[] soneto = {
-        " ______ Fidelidade da Soneto _____ ",
+        " Fidelidade da Soneto ",
         "                                      ",
         " atento serei amor meu ao tudo, De ",
         " tanto e sempre, e zelo, tal com e Antes, ",
@@ -91,7 +91,7 @@ public class inverte {
         " pensamento. meu mais encante se Dele ",
         " (...) ",
         " ",
-        " Moraes de Vinicius ________________ "};
+        " Moraes de Vinicius "};
  
     public static void main(String[] args) {
         for (String verso : soneto) {
@@ -103,6 +103,18 @@ public class inverte {
     }
 }
 ```
+
+A saída em ambos os casos será a seguinte:
+
+__Soneto da Fidelidade__
+ 
+__De tudo, ao meu amor serei atento__  
+__Antes, e com tal zelo, e sempre, e tanto__  
+__Que mesmo em face do maior encanto__  
+__Dele se encante mais meu pensamento.__  
+__(...)__
+ 
+__Vinicius de Moraes__
 
 Na POO em java, quando nós rodamos o programa, a classe é definida, um ou mais objetos são instanciados, e a partir daí podemos chamar os métodos dos objetos.
 
