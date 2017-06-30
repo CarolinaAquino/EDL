@@ -22,7 +22,20 @@ Transcript show: 5 factorial asString.
 ```
 
 No exemplo do fatorial, enviamos a mensagem _factorial_ para o objeto _5_ que responde _120_, então a mensagem _show:_ é enviada  para o objeto _Transcript_ com o argumento _120_. A invocação do método _show:_ faz com que os caracteres de seu argumento sejam exibidos no terminal.  
-Em java, não utilizaríamos objetos e, muito menos, troca de mensagens para isso.
+Agora veja o mesmo exemplo em java, onde não é utilizado objeto e, muito menos, troca de mensagens para fazer um simples cálculo de fatorial. Temos uma função _fatorial_ que recebe um número inteiro como parâmetro e realiza o cálculo do fatorial recursivamente, retornando o resultado ao main, que exibe no terminal através do método _System.out.println_.
+
+```java
+public class fatorial {
+	public static int fatorial(int n) {
+		if (n == 1 || n == 0) return 1; 
+		return n * fatorial(n-1);
+	}
+	public static void main(String args[]) {
+		System.out.println("Fatorial de 5 = " + fatorial(5));
+	}
+}
+```
+Nessa comparação, fica claro que em smalltalk nós não chamamos uma função ou procedure, mas realmente enviamos uma mensagem a um objeto.
 
 No exemplo a seguir, são impressas todas as potências de 2 entre 1 e 500. Analisando apenas o cálculo da potência, temos dois objetos envolvidos: _2_ como o receptor da mensagem (sendo a mensagem o método _raisedTo:_ da classe Number) e _i_ como o argumento da mensagem.
 
@@ -30,6 +43,65 @@ No exemplo a seguir, são impressas todas as potências de 2 entre 1 e 500. Anal
 1 to: 500 do: [:i |
 Transcript show: '2 elevado a ', (i asString), ' é ', (2 raisedTo: i) asString; cr.
 ].
+```
+
+Agora o mesmo exemplo em java. Desconsidere o fato do java não calcular corretamente a potência até 500 sem um tratamento específico por se tratar de números grandes. Neste código, a potência é calculada através do método _pow_ da classe _Math_ que retorna o resultado para o método _System.out.println_ exibir no terminal.
+Comparando os dois códigos, vemos que os métodos _raisedTo:_ e _pow_ funcionam de maneira semelhante. Porém, no java não há troca troca de mensagens entre objetos, como no caso do smalltalk.
+
+```java
+import java.io.*;
+public class potencia{
+	public static void main(String[] args){
+		int i=1;
+		do{
+			System.out.println("2 elevado a "+i+" = "+ Math.pow(2,i));
+			i++;
+		}while (i<=500);
+	}
+}
+```
+
+No terceiro exemplo, temos dois códigos que fazem inversão de String, um em smalltalk e outro em java. Mais uma vez, utilizando troca de mensagens entre objetos, no caso do smalltalk, e em java invertendo palavras no vetor.
+
+```smalltalk
+soneto := ' ______ Fidelidade da Soneto _____ 
+ 
+atento serei amor meu ao tudo, De
+tanto e sempre, e zelo, tal com e Antes,
+encanto maior do face em mesmo Que
+pensamento. meu mais encante se Dele
+(...)
+ 
+Moraes de Vinicius ________________'.
+ 
+(soneto lines collect: [ :line | ((line splitOn: ' ') reverse) joinUsing: ' '  ]) joinUsing: (String cr).
+```
+
+Agora vejamos em java:
+
+```java
+public class inverte {
+ 
+    static final String[] soneto = {
+        " ______ Fidelidade da Soneto _____ ",
+        "                                      ",
+        " atento serei amor meu ao tudo, De ",
+        " tanto e sempre, e zelo, tal com e Antes, ",
+        " encanto maior do face em mesmo Que ",
+        " pensamento. meu mais encante se Dele ",
+        " (...) ",
+        " ",
+        " Moraes de Vinicius ________________ "};
+ 
+    public static void main(String[] args) {
+        for (String verso : soneto) {
+            String[] palavra = verso.split("\\s");
+            for (int i = palavra.length - 1; i >= 0; i--)
+                System.out.printf("%s ", palavra[i]);
+            System.out.println();
+        }
+    }
+}
 ```
 
 Na POO em java, quando nós rodamos o programa, a classe é definida, um ou mais objetos são instanciados, e a partir daí podemos chamar os métodos dos objetos.
