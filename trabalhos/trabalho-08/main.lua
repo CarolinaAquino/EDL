@@ -1,4 +1,8 @@
-function new (x,y,vx,vy) --TRABALHO-08: corrotina que movimenta o emoji de forma retangular
+--[[TRABALHO-08: 
+ corrotina que movimenta o emoji e nova barra de forma retangular
+ quando a bola colide com a nove barra, a bola muda sua direção e velocidade
+ --]]
+function new (x,y,w,h,vx,vy)
     local me; me = {
         move = function (dx,dy)
              x = x + dx
@@ -6,7 +10,7 @@ function new (x,y,vx,vy) --TRABALHO-08: corrotina que movimenta o emoji de forma
              return x, y
         end,
         get = function ()
-             return x, y
+             return x, y, w, h
         end,
         co = coroutine.create(function (dt)
             while true do
@@ -32,7 +36,8 @@ function new (x,y,vx,vy) --TRABALHO-08: corrotina que movimenta o emoji de forma
     return me
 end
 
-local o1 = new(870,350,50,50)
+local o1 = new(870,350,0,0,50,50) -- EMOJI
+local o2 = new(330,300,100,10,50,50) -- NOVA BARRA
 
 function love.load ()
 	p2 = {350, 550, 100, 10}
@@ -144,6 +149,22 @@ function collidesY (o1, o2)
     return (o1.y+o1.h >= o2.y) and (o1.y <= o2.y+o2.h)
 end
 
+function collidesC (o1, o2)
+	local x2,y2,w2,h2 = o2.get()
+    return (o1.x+o1.w >= x2) and (o1.x <= x2+w2) and
+           (o1.y+o1.h >= y2) and (o1.y <= y2+h2)
+end
+
+function collidesXC (o1, o2)
+	local x2,y2,w2,h2 = o2.get()
+    return (o1.x+o1.w >= x2) and (o1.x <= x2+w2) 
+end
+
+function collidesYC (o1, o2)
+	local x2,y2,w2,h2 = o2.get()
+    return (o1.y+o1.h >= y2) and (o1.y <= y2+h2)
+end
+
 function collidesT (o1, o2)
     return (o1[1]+o1[3] >= o2.x) and (o1[1] <= o2.x+o2.w) and
            (o1[2]+o1[4] >= o2.y) and (o1[2] <= o2.y+o2.h)
@@ -158,7 +179,8 @@ function collidesYT (o1, o2)
 end	
 
 function love.update (dt)
-	coroutine.resume(o1.co, dt)
+	coroutine.resume(o1.co, dt) --EMOJI
+	coroutine.resume(o2.co, dt) --NOVA BARRA
 	if (val%5==0) and (val>0) then
 		bonus='T'
 		start=love.timer.getTime()
@@ -211,6 +233,21 @@ function love.update (dt)
 
     end
 	
+	-- TRABALHO-08 COLISAO DA BOLA COM A NOVA BARRA
+	if collidesC(p3, o2) then
+		if collidesXC(p3,o2) then
+			p3.vx=(10*(p3.x-((p2[3]/2)+p2[1])))
+			if ((p2[1]+(p2[3]/2)<p3.x+p3.w) and p3.vx<0) or ((p2[1]+(p2[3]/2)>p3.x+p3.w) and p3.vx>0) then
+				p3.vx=(-1)*p3.vx
+			end
+		elseif	collidesYC(p3,o2) then
+			p3.vx=p3.vx*(-1)
+		end
+		p3.vy=p3.vy*(-1.01)
+
+    end
+	
+	
 	for i=1, 3 do
 		for j=1, 14 do
 			if collides(a[i][j], p3) then
@@ -242,8 +279,10 @@ function love.draw ()
     love.graphics.print("Pontuacao: "..val, 900, 50, 0, 1.2, 1.2)
 	love.graphics.print("Quadrados Restantes: ".. 84-val, 850, 150, 0, 1.2, 1.2)
 	emoji = love.graphics.newImage("good_luck.png")
-	local x,y = o1.get()
+	local x,y,w,h = o1.get()
 	love.graphics.draw(emoji, x, y,0,1,1,0,0,0,0)
+	local x2,y2,w2,h2 = o2.get()
+	love.graphics.rectangle('fill',x2,y2,w2,h2)
 
 	for i=1, 3 do
 		for j=1, 14 do
